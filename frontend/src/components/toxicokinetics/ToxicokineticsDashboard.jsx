@@ -5,12 +5,10 @@ import AnalysisResults from './AnalysisResults';
 import ExpertAiPanel from '../shared/ExpertAiPanel';
 
 export default function ToxicokineticsDashboard() {
-  const [dose, setDose] = useState(1000);
+  const [dose, setDose] = useState('');
   const [points, setPoints] = useState([
-    { time: 5, concentration: 100 },
-    { time: 15, concentration: 85 },
-    { time: 30, concentration: 70 },
-    { time: 60, concentration: 48 }
+    { time: '', concentration: '' },
+    { time: '', concentration: '' }
   ]);
   
   // Состояние для хранения результатов от Java и индикатора загрузки
@@ -65,6 +63,7 @@ export default function ToxicokineticsDashboard() {
               value={dose} 
               onChange={(e) => setDose(e.target.value)} 
               className="w-full border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+              placeholder="Например, 1000"
             />
           </div>
           <div className="flex-1 overflow-auto">
@@ -94,7 +93,6 @@ export default function ToxicokineticsDashboard() {
           Результаты анализа и Заключение
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Передаем результаты с сервера в компонент */}
           <AnalysisResults results={results} />
           <ExpertAiPanel />
         </div>

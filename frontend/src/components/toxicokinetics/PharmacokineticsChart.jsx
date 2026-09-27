@@ -4,9 +4,28 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 export default function PharmacokineticsChart({ data }) {
   const chartRef = useRef(null);
 
+  // Проверяем, есть ли достаточно данных для построения графика
+  const validPoints = data ? data.filter(p => 
+    p.time !== '' && p.concentration !== '' && 
+    p.time != null && p.concentration != null
+  ) : [];
+  
+  const hasValidData = validPoints.length >= 2;
+
   const downloadChart = () => {
     alert("Здесь мы подключим html2canvas для сохранения PNG!");
   };
+
+  // Если данных недостаточно — показываем заглушку
+  if (!hasValidData) {
+    return (
+      <div className="relative w-full h-[350px] flex items-center justify-center">
+        <p className="text-slate-400 italic text-sm">
+          Введите данные для построения графика
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full h-[350px]">
@@ -14,16 +33,14 @@ export default function PharmacokineticsChart({ data }) {
         onClick={downloadChart}
         className="absolute -top-12 right-0 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium py-1.5 px-3 rounded-md transition-colors border border-slate-200 z-10"
       >
-        💾 Скачать график
+        💾 Скачать PNG
       </button>
       
       <div ref={chartRef} className="w-full h-full mt-4">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={data} margin={{ top: 10, right: 30, left: 10, bottom: 20 }}>
-            {/* Делаем сетку бледной и пунктирной */}
+          <AreaChart data={validPoints} margin={{ top: 10, right: 30, left: 10, bottom: 20 }}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
             
-            {/* Оси с подписями единиц измерения */}
             <XAxis 
               dataKey="time" 
               stroke="#64748b" 
@@ -40,7 +57,6 @@ export default function PharmacokineticsChart({ data }) {
               label={{ value: 'Концентрация (мкг/мл)', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle' }, fill: '#475569', fontSize: 13 }} 
             />
             
-            {/* Улучшенная подсказка при наведении */}
             <Tooltip 
               contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', padding: '12px' }}
               labelStyle={{ fontWeight: 'bold', color: '#334155', marginBottom: '8px' }}
@@ -48,7 +64,6 @@ export default function PharmacokineticsChart({ data }) {
               labelFormatter={(label) => `Время: ${label} мин`}
             />
             
-            {/* Area заменяет Line для заливки площади (AUC) полупрозрачным цветом */}
             <Area 
               type="monotone" 
               dataKey="concentration" 
