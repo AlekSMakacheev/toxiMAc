@@ -19,7 +19,7 @@ export default function PharmacokineticsChart({ data }) {
   // Если данных недостаточно — показываем заглушку
   if (!hasValidData) {
     return (
-      <div className="relative w-full h-[350px] flex items-center justify-center">
+      <div className="relative w-full h-87.5 flex items-center justify-center">
         <p className="text-slate-400 italic text-sm">
           Введите данные для построения графика
         </p>
@@ -28,7 +28,7 @@ export default function PharmacokineticsChart({ data }) {
   }
 
   return (
-    <div className="relative w-full h-[350px]">
+    <div className="relative w-full h-87.5">
       <button 
         onClick={downloadChart}
         className="absolute -top-12 right-0 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium py-1.5 px-3 rounded-md transition-colors border border-slate-200 z-10"

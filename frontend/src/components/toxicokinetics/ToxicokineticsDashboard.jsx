@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import PharmacokineticsChart from './PharmacokineticsChart';
-import DataInputTable from './DataInputTable';
-import AnalysisResults from './AnalysisResults';
+import PharmacokineticsChart from './ToxicokineticsChart';
+import DataInputTable from './ToxicokineticsInputTable';
+import AnalysisResults from './ToxicokineticsResults';
 import ExpertAiPanel from '../shared/ExpertAiPanel';
 
 export default function ToxicokineticsDashboard() {

@@ -1,4 +1,4 @@
-import ParameterCard from './ParameterCard';
+import ParameterCard from '../shared/ParameterCard';
 
 export default function AnalysisResults({ results }) {
   // Если данных нет — показываем заглушку
