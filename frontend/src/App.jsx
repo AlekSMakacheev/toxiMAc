@@ -17,13 +17,13 @@ function App() {
 
         <main className="flex-1 p-6 overflow-y-auto">
           
-          {/* Если выбран калькулятор - рисуем наш новый изолированный модуль */}
+          
           {activeTool === 'toxicokinetics' && (
             <ToxicokineticsDashboard />
           )}
 
 
-          {/* Если выбран Справочник */}
+          
           {activeTool === 'reference' && (
             <ReferenceManual />
           )}
@@ -44,7 +44,7 @@ function App() {
               <div className="w-24 h-24 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-300 mb-4 shadow-inner">
                 <span className="text-5xl">🧪</span>
               </div>
-              <h2 className="text-3xl font-bold text-slate-600 mb-2">Добро пожаловать в toxiCMAC</h2>
+              <h2 className="text-3xl font-bold text-slate-600 mb-2">Добро пожаловать в toxiMAc</h2>
               <p className="text-slate-400 text-lg">Выберите инструмент в меню слева для начала работы</p>
             </div>
           )}

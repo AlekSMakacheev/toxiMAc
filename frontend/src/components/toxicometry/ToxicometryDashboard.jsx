@@ -34,7 +34,7 @@ export default function ToxicometryDashboard() {
     }
   };
 
-  // Нативная функция скачивания графика в PNG
+  // Функция скачивания графика в PNG
   const downloadChart = () => {
     const chartNode = chartContainerRef.current;
     if (!chartNode) return;
