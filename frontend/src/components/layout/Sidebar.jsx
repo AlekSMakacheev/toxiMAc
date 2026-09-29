@@ -6,18 +6,7 @@ export default function Sidebar({ activeTool, setActiveTool }) {
       {/* flex-1 заставляет этот блок занять всё свободное место, выталкивая Справочник вниз */}
       <nav className="p-4 space-y-2 flex-1">
         
-        <button 
-          onClick={() => setActiveTool('toxicokinetics')}
-          className={`w-full text-left px-4 py-3 font-semibold rounded-lg transition-colors border shadow-sm ${
-            activeTool === 'toxicokinetics' 
-              ? 'bg-indigo-50 text-indigo-700 border-indigo-100' 
-              : 'bg-white text-slate-600 border-transparent hover:bg-slate-50'
-          }`}
-        >
-          Токсикокинетика
-        </button>
-
-        {/* Стили скопированы с Токсикокинетики, добавлено flex items-center для иконки */}
+        {/* Токсикометрия — первая */}
         <button 
           onClick={() => setActiveTool('toxicometry')}
           className={`w-full flex items-center text-left px-4 py-3 font-semibold rounded-lg transition-colors border shadow-sm ${
@@ -27,6 +16,18 @@ export default function Sidebar({ activeTool, setActiveTool }) {
           }`}
         >
           Токсикометрия
+        </button>
+
+        {/* Токсикокинетика — вторая */}
+        <button 
+          onClick={() => setActiveTool('toxicokinetics')}
+          className={`w-full text-left px-4 py-3 font-semibold rounded-lg transition-colors border shadow-sm ${
+            activeTool === 'toxicokinetics' 
+              ? 'bg-indigo-50 text-indigo-700 border-indigo-100' 
+              : 'bg-white text-slate-600 border-transparent hover:bg-slate-50'
+          }`}
+        >
+          Токсикокинетика
         </button>
         
         <button 

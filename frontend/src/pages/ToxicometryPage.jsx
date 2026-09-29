@@ -1,9 +1,11 @@
 import { useState, useRef } from 'react';
-import ToxicometryInputTable from './ToxicometryInputTable';
-import ToxicometryChart from './ToxicometryChart';
-import ToxicometryResults from './ToxicometryResults';
+import { calculateToxicometry } from '../api/toxicometry';
+import { buildRegressionPoints, calcTheoreticalMortality } from '../utils/toxicometry';
+import ToxicometryInputTable from '../components/toxicometry/ToxicometryInputTable';
+import ToxicometryChart from '../components/toxicometry/ToxicometryChart';
+import ToxicometryResults from '../components/toxicometry/ToxicometryResults';
 
-export default function ToxicometryDashboard() {
+export default function ToxicometryPage() {
   const [groups, setGroups] = useState([
     { dose: '', total: '', dead: '' },
     { dose: '', total: '', dead: '' },
@@ -16,17 +18,7 @@ export default function ToxicometryDashboard() {
 
   const handleCalculate = async () => {
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
-
-      const response = await fetch(`${API_URL}/toxicometry/calculate`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ groups: groups })
-      });
-
-      if (!response.ok) throw new Error('Ошибка при расчете на сервере');
-
-      const data = await response.json();
+      const data = await calculateToxicometry(groups);
       setResults(data);
     } catch (error) {
       console.error("Ошибка сервера:", error);
@@ -80,33 +72,13 @@ export default function ToxicometryDashboard() {
     const minDose = experimentalData[0].dose;
     const maxDose = experimentalData[experimentalData.length - 1].dose;
 
-    const calcTheoretical = (d) => {
-      const probit = results.a + results.b * Math.log10(d);
-      const z = probit - 5.0;
-      const sign = z < 0 ? -1 : 1;
-      const x = Math.abs(z) / Math.SQRT2;
-      const t = 1.0 / (1.0 + 0.3275911 * x);
-      const erf = 1.0 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x);
-      return 0.5 * (1.0 + sign * erf) * 100;
-    };
+    // Точки регрессии — из utils
+    const regressionPoints = buildRegressionPoints(minDose, maxDose, results.a, results.b, 50);
 
-    const steps = 50;
-    const logMin = Math.log10(minDose / 1.5);
-    const logMax = Math.log10(maxDose * 1.5);
-    const stepSize = (logMax - logMin) / steps;
-
-    const regressionPoints = [];
-    for (let i = 0; i <= steps; i++) {
-      const currentDose = Math.pow(10, logMin + stepSize * i);
-      regressionPoints.push({
-        dose: currentDose,
-        theoretical: calcTheoretical(currentDose)
-      });
-    }
-
+    // Теоретические значения для экспериментальных точек
     chartData = chartData.map(pt => ({
       ...pt,
-      theoretical: calcTheoretical(pt.dose)
+      theoretical: calcTheoreticalMortality(pt.dose, results.a, results.b)
     }));
 
     chartData = [...chartData, ...regressionPoints].sort((a, b) => a.dose - b.dose);
@@ -114,11 +86,11 @@ export default function ToxicometryDashboard() {
 
   return (
     <div className="space-y-6 animate-in fade-in duration-300 h-full flex flex-col">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
 
         <div className="lg:col-span-1 bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col">
           <h2 className="text-lg font-bold text-slate-800 mb-4">Данные групп (In vivo)</h2>
-          <div className="flex-1 overflow-hidden min-h-[300px] mb-4">
+          <div className="flex-1 overflow-hidden min-h-75 mb-4">
             <ToxicometryInputTable groups={groups} setGroups={setGroups} />
           </div>
           <button

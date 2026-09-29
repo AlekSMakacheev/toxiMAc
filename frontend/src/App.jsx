@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import Header from './components/layout/Header';
 import Sidebar from './components/layout/Sidebar';
-import ToxicokineticsDashboard from './components/toxicokinetics/ToxicokineticsDashboard';
-import ReferenceManual from './components/ReferenceManual';
-import ToxicometryDashboard from './components/toxicometry/ToxicometryDashboard';
+import ToxicokineticsPage from './pages/ToxicokineticsPage';
+import ToxicometryPage from './pages/ToxicometryPage';
+import ReferencePage from './pages/ReferencePage';
 
 function App() {
   const [activeTool, setActiveTool] = useState(null); 
@@ -16,26 +16,21 @@ function App() {
         <Sidebar activeTool={activeTool} setActiveTool={setActiveTool} />
 
         <main className="flex-1 p-6 overflow-y-auto">
-          
-          
-          {activeTool === 'toxicokinetics' && (
-            <ToxicokineticsDashboard />
-          )}
 
+          {/* Токсикометрия — первая */}
+          {activeTool === 'toxicometry' && <ToxicometryPage />}
 
-          
-          {activeTool === 'reference' && (
-            <ReferenceManual />
-          )}
+          {/* Токсикокинетика — вторая */}
+          {activeTool === 'toxicokinetics' && <ToxicokineticsPage />}
 
-          {activeTool === 'toxicometry' && <ToxicometryDashboard/>}
-
+          {/* Справочник */}
+          {activeTool === 'reference' && <ReferencePage />}
 
           {activeTool === 'future_tool' && (
             <div className="h-full flex flex-col items-center justify-center text-slate-400 animate-in fade-in duration-300">
               <span className="text-6xl mb-4">🛠️</span>
               <h2 className="text-2xl font-medium text-slate-500">Инструмент в разработке</h2>
-              <p className="mt-2 text-slate-400">Скоро здесь появится модуль токсикометрии</p>
+              <p className="mt-2 text-slate-400">Скоро здесь появится модуль</p>
             </div>
           )}
 

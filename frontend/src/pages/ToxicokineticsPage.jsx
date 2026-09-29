@@ -1,48 +1,40 @@
-import { useState } from 'react';
-import PharmacokineticsChart from './ToxicokineticsChart';
-import DataInputTable from './ToxicokineticsInputTable';
-import AnalysisResults from './ToxicokineticsResults';
-import ExpertAiPanel from '../shared/ExpertAiPanel';
+import { useState, useRef } from 'react';
+import { calculateToxicokinetics } from '../api/toxicokinetics';
+import ToxicokineticsChart from '../components/toxicokinetics/ToxicokineticsChart';
+import ToxicokineticsInputTable from '../components/toxicokinetics/ToxicokineticsInputTable';
+import ToxicokineticsResults from '../components/toxicokinetics/ToxicokineticsResults';
+import ExpertAiPanel from '../components/shared/ExpertAiPanel';
 
-export default function ToxicokineticsDashboard() {
+export default function ToxicokineticsPage() {
   const [dose, setDose] = useState('');
   const [points, setPoints] = useState([
     { time: '', concentration: '' },
     { time: '', concentration: '' }
   ]);
   
-  // Состояние для хранения результатов от Java и индикатора загрузки
   const [results, setResults] = useState(null);
   const [isCalculating, setIsCalculating] = useState(false);
+  const chartContainerRef = useRef(null);
 
-  // Функция связи с нашим Spring Boot сервером
+  // Проверяем, есть ли достаточно данных для графика
+  const validPoints = points.filter(p => 
+    p.time !== '' && p.concentration !== '' && 
+    p.time != null && p.concentration != null
+  );
+  const hasData = validPoints.length >= 2;
+
+  // Заглушка функции скачивания
+  const downloadChart = () => {
+    alert("Здесь мы подключим html2canvas для сохранения PNG!");
+  };
+
   const handleCalculate = async () => {
     setIsCalculating(true);
     try {
-      const requestData = {
-        dose: parseFloat(dose),
-        points: points.map(p => ({
-          time: parseFloat(p.time),
-          concentration: parseFloat(p.concentration)
-        }))
-      };
-
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
-
-      const response = await fetch(`${API_URL}/calculate/toxicokinetics`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestData),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setResults(data);
-      } else {
-        console.error('Ошибка сервера');
-      }
+      const data = await calculateToxicokinetics(dose, points);
+      setResults(data);
     } catch (error) {
-      console.error('Ошибка сети:', error);
+      console.error('Ошибка расчета:', error);
     } finally {
       setIsCalculating(false);
     }
@@ -50,9 +42,9 @@ export default function ToxicokineticsDashboard() {
 
   return (
     <div className="max-w-7xl mx-auto space-y-6 animate-in fade-in duration-300">
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
         {/* Ввод данных */}
-        <div className="xl:col-span-1 bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col">
+        <div className="lg:col-span-1 bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col">
           <h2 className="text-lg font-bold text-slate-700 mb-4 border-b border-slate-100 pb-2">
             Экспериментальные данные
           </h2>
@@ -67,7 +59,7 @@ export default function ToxicokineticsDashboard() {
             />
           </div>
           <div className="flex-1 overflow-auto">
-            <DataInputTable points={points} setPoints={setPoints} />
+            <ToxicokineticsInputTable points={points} setPoints={setPoints} />
           </div>
           <button 
             onClick={handleCalculate}
@@ -78,13 +70,13 @@ export default function ToxicokineticsDashboard() {
           </button>
         </div>
 
-        {/* График */}
-        <div className="xl:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 p-5">
-          <h2 className="text-lg font-bold text-slate-700 mb-4 border-b border-slate-100 pb-2">График</h2>
-          <div className="[&>div]:border-none [&>div]:shadow-none [&>div]:p-0 [&>div]:mb-0">
-            <PharmacokineticsChart data={points} />
-          </div>
-        </div>
+        {/* График — теперь с пропсами */}
+        <ToxicokineticsChart 
+          data={validPoints}
+          hasData={hasData}
+          downloadChart={downloadChart}
+          chartContainerRef={chartContainerRef}
+        />
       </div>
 
       {/* Результаты */}
@@ -92,8 +84,8 @@ export default function ToxicokineticsDashboard() {
         <h2 className="text-lg font-bold text-slate-700 mb-4 border-b border-slate-100 pb-2">
           Результаты анализа и Заключение
         </h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <AnalysisResults results={results} />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          <ToxicokineticsResults results={results} />
           <ExpertAiPanel />
         </div>
       </div>

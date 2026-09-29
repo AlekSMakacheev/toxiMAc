@@ -57,7 +57,7 @@ export default function ToxicometryChart({
         )}
       </div>
 
-      <div className="flex-1 bg-slate-50 border border-slate-200 rounded-lg p-4 h-full w-full" ref={chartContainerRef}>
+      <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 h-87.5" ref={chartContainerRef}>
         {hasData ? (
           <ResponsiveContainer width="100%" height="100%" minHeight={300}>
             <ComposedChart data={chartData} margin={{ top: 10, right: 20, bottom: 25, left: 10 }}>
