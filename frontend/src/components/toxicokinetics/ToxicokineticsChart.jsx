@@ -5,8 +5,10 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  ResponsiveContainer
+  ResponsiveContainer,
+  ReferenceLine
 } from 'recharts';
+import { CHART_COLORS } from '../../constants/colors';
 
 export default function ToxicokineticsChart({
   data,
@@ -17,7 +19,7 @@ export default function ToxicokineticsChart({
   return (
     <div className="lg:col-span-2 bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col min-h-100">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-bold text-slate-700">График</h2>
+        <h2 className="text-lg font-bold text-slate-700">График кинетической зависимости</h2>
 
         {hasData && (
           <button
@@ -41,22 +43,22 @@ export default function ToxicokineticsChart({
         {hasData ? (
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={data} margin={{ top: 10, right: 30, left: 10, bottom: 20 }}>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={CHART_COLORS.GRID} />
 
               <XAxis
                 dataKey="time"
-                stroke="#64748b"
+                stroke={CHART_COLORS.AXIS}
                 fontSize={12}
-                tickLine={false}
-                axisLine={false}
-                label={{ value: 'Время (мин)', position: 'insideBottom', offset: -10, fill: '#475569', fontSize: 13 }}
+                tickLine={true}
+                axisLine={true}
+                label={{ value: 'Время (мин)', position: 'insideBottom', offset: -10, fill: CHART_COLORS.LABEL, fontSize: 13 }}
               />
               <YAxis
-                stroke="#64748b"
+                stroke={CHART_COLORS.AXIS}
                 fontSize={12}
-                tickLine={false}
-                axisLine={false}
-                label={{ value: 'Концентрация (мкг/мл)', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle' }, fill: '#475569', fontSize: 13 }}
+                tickLine={true}
+                axisLine={true}
+                label={{ value: 'Концентрация (мкг/мл)', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle' }, fill: CHART_COLORS.LABEL, fontSize: 13 }}
               />
 
               <Tooltip
@@ -66,19 +68,41 @@ export default function ToxicokineticsChart({
                 labelFormatter={(label) => `Время: ${label} мин`}
               />
 
+              {data.map((point, index) => (
+                <ReferenceLine
+                  key={index}
+                  x={point.time}
+                  stroke={CHART_COLORS.TOXICOKINETICS_GUIDE_LINE}
+                  strokeDasharray="3 3"
+                />
+              ))}
+
               <Area
                 type="monotone"
                 dataKey="concentration"
-                stroke="#4f46e5"
-                strokeWidth={3}
-                fill="#818cf8"
-                fillOpacity={0.2}
-                activeDot={{ r: 7, strokeWidth: 0, fill: '#4f46e5', style: { filter: 'drop-shadow(0px 2px 4px rgba(0,0,0,0.2))' } }}
+                stroke={CHART_COLORS.TOXICOKINETICS_LINE}
+                strokeWidth={2}
+                fill={CHART_COLORS.TOXICOKINETICS_FILL}
+                fillOpacity={CHART_COLORS.TOXICOKINETICS_FILL_OPACITY}
+                dot={{
+                  r: CHART_COLORS.TOXICOKINETICS_DOT_RADIUS,
+                  fill: CHART_COLORS.TOXICOKINETICS_DOT,
+                  stroke: CHART_COLORS.TOXICOKINETICS_DOT_STROKE,
+                  strokeWidth: 1.5
+                }}
+                activeDot={{
+                  r: CHART_COLORS.TOXICOKINETICS_DOT_RADIUS + 3,
+                  fill: CHART_COLORS.TOXICOKINETICS_DOT,
+                  stroke: CHART_COLORS.TOXICOKINETICS_DOT_STROKE,
+                  strokeWidth: 2,
+                }}
               />
+
+              
             </AreaChart>
           </ResponsiveContainer>
         ) : (
-          <div className="h-full w-full flex items-center justify-center text-slate-400">
+          <div className="h-full w-full flex items-center justify-center italic text-slate-400">
             Введите данные для построения графика
           </div>
         )}

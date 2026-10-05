@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { calculateToxicometry } from '../api/toxicometry';
+import { downloadChartAsPng } from '../utils/downloadChart';
 import { buildRegressionPoints, calcTheoreticalMortality } from '../utils/toxicometry';
 import ToxicometryInputTable from '../components/toxicometry/ToxicometryInputTable';
 import ToxicometryChart from '../components/toxicometry/ToxicometryChart';
@@ -24,35 +25,6 @@ export default function ToxicometryPage() {
       console.error("Ошибка сервера:", error);
       alert("Не удалось выполнить расчет. Проверьте данные.");
     }
-  };
-
-  // Функция скачивания графика в PNG
-  const downloadChart = () => {
-    const chartNode = chartContainerRef.current;
-    if (!chartNode) return;
-    const svg = chartNode.querySelector('svg');
-    if (!svg) return;
-
-    const svgData = new XMLSerializer().serializeToString(svg);
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    const img = new Image();
-
-    img.onload = () => {
-      canvas.width = svg.clientWidth || 800;
-      canvas.height = svg.clientHeight || 400;
-
-      ctx.fillStyle = 'white';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0);
-
-      const a = document.createElement('a');
-      a.download = 'dose-effect-chart.png';
-      a.href = canvas.toDataURL('image/png');
-      a.click();
-    };
-
-    img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
   };
 
   const experimentalData = groups
@@ -89,7 +61,7 @@ export default function ToxicometryPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
 
         <div className="lg:col-span-1 bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col">
-          <h2 className="text-lg font-bold text-slate-800 mb-4">Данные групп (In vivo)</h2>
+          <h2 className="text-lg font-bold text-slate-800 mb-4 text-center">Экспериментальные данные</h2>
           <div className="flex-1 overflow-hidden min-h-75 mb-4">
             <ToxicometryInputTable groups={groups} setGroups={setGroups} />
           </div>
@@ -97,7 +69,7 @@ export default function ToxicometryPage() {
             onClick={handleCalculate}
             className="w-full py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg shadow-sm transition-colors"
           >
-            Рассчитать летальные дозы
+            Рассчитать дозы
           </button>
         </div>
 
@@ -105,7 +77,7 @@ export default function ToxicometryPage() {
           chartData={chartData}
           customXTicks={customXTicks}
           results={results}
-          downloadChart={downloadChart}
+          downloadChart={() => downloadChartAsPng(chartContainerRef, 'dose-effect-chart.png')}
           chartContainerRef={chartContainerRef}
           hasData={experimentalData.length > 0}
         />

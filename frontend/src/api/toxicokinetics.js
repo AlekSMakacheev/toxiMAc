@@ -2,7 +2,6 @@ import { post } from './client';
 import { ENDPOINTS } from '../constants/api';
 
 // Расчёт токсикокинетических параметров.
-
 export async function calculateToxicokinetics(dose, points) {
   const requestData = {
     dose: parseFloat(dose),

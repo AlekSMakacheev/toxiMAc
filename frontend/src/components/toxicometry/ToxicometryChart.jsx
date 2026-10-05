@@ -9,8 +9,8 @@ import {
   ResponsiveContainer,
   ZAxis
 } from 'recharts';
+import { CHART_COLORS } from '../../constants/colors';
 
-// CustomTooltip — ВНЕ компонента, чтобы React не пересоздавал его каждый рендер
 function CustomTooltip({ active, payload }) {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
@@ -21,7 +21,7 @@ function CustomTooltip({ active, payload }) {
           <p className="text-rose-600">Факт. гибель: {data.mortality.toFixed(1)}%</p>
         )}
         {data.theoretical !== undefined && (
-          <p className="text-indigo-600">Модель (Пробит): {data.theoretical.toFixed(1)}%</p>
+          <p className="text-emerald-600">Модель (Пробит): {data.theoretical.toFixed(1)}%</p>
         )}
       </div>
     );
@@ -40,7 +40,7 @@ export default function ToxicometryChart({
   return (
     <div className="lg:col-span-2 bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col min-h-100">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-bold text-slate-800">Кривая «Доза-Эффект»</h2>
+        <h2 className="text-lg font-bold text-slate-800">График зависимости «доза-эффект»</h2>
 
         {hasData && (
           <button
@@ -61,7 +61,7 @@ export default function ToxicometryChart({
         {hasData ? (
           <ResponsiveContainer width="100%" height="100%" minHeight={300}>
             <ComposedChart data={chartData} margin={{ top: 10, right: 20, bottom: 25, left: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+              <CartesianGrid strokeDasharray="3 3" stroke={CHART_COLORS.GRID} />
 
               <XAxis
                 type="number"
@@ -70,12 +70,12 @@ export default function ToxicometryChart({
                 domain={['auto', 'auto']}
                 ticks={customXTicks}
                 tickFormatter={(tick) => tick}
-                tick={{ fill: '#94a3b8', fontSize: 12 }}
+                tick={{ fill: '#1e293b', fontSize: 12 }}
                 label={{
                   value: 'Доза (мг/кг), логарифмическая шкала',
                   position: 'insideBottom',
                   offset: -20,
-                  fill: '#94a3b8',
+                  fill: '#1e293b',
                   fontSize: 12
                 }}
               />
@@ -84,12 +84,12 @@ export default function ToxicometryChart({
                 type="number"
                 dataKey="mortality"
                 domain={[0, 100]}
-                tick={{ fill: '#94a3b8', fontSize: 12 }}
+                tick={{ fill: '#1e293b', fontSize: 12 }}
                 label={{
-                  value: 'Летальность (%)',
+                  value: 'Эффект (%)',
                   angle: -90,
                   position: 'insideLeft',
-                  fill: '#94a3b8',
+                  fill: '#1e293b',
                   fontSize: 12,
                   offset: 0
                 }}
@@ -103,20 +103,20 @@ export default function ToxicometryChart({
                   type="monotone"
                   dataKey="theoretical"
                   name="Регрессия"
-                  stroke="#4f46e5"
+                  stroke={CHART_COLORS.TOXICOMETRY_REGRESSION}
                   strokeWidth={1.5}
-                  strokeDasharray="5 5"
+                  strokeDasharray={CHART_COLORS.TOXICOMETRY_REGRESSION_DASH}
                   dot={false}
                   activeDot={false}
                   connectNulls={true}
                 />
               )}
 
-              <Scatter name="Эксперимент" data={chartData} fill="#e11d48" />
+              <Scatter name="Эксперимент" data={chartData} fill={CHART_COLORS.TOXICOMETRY_EXPERIMENT} />
             </ComposedChart>
           </ResponsiveContainer>
         ) : (
-          <div className="h-full w-full flex items-center justify-center text-slate-400">
+          <div className="h-full w-full flex items-center justify-center italic text-slate-400">
             Введите данные для построения графика
           </div>
         )}
