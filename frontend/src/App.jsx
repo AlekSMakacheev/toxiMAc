@@ -42,7 +42,7 @@ function App() {
               <img 
                 src={logo} 
                 alt="" 
-                className="absolute inset-0 m-auto w-[600px] h-[600px] object-contain opacity-15 pointer-events-none select-none"
+                className="absolute inset-0 m-auto w-150 h-150 object-contain opacity-15 pointer-events-none select-none"
               />
 
               {/* Текст поверх */}
