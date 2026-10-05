@@ -28,9 +28,11 @@ export default function ToxicometryInputTable({ groups, setGroups }) {
         <table className="w-full text-sm text-left">
           <thead className="bg-slate-50 text-slate-600 font-medium border-b border-slate-200">
             <tr>
-              <th className="px-3 py-3">Доза (мг/кг)</th>
-              <th className="px-3 py-3">Всего (n)</th>
-              <th className="px-3 py-3">Пало</th>
+              <th className="px-3 py-3 text-center">Доза<br />
+                (мг/кг)
+              </th>
+              <th className="px-3 py-3 text-center">Всего (n)</th>
+              <th className="px-3 py-3 text-center">Эффект</th>
               <th className="px-2 py-3 w-10"></th>
             </tr>
           </thead>
@@ -42,7 +44,7 @@ export default function ToxicometryInputTable({ groups, setGroups }) {
                     type="number"
                     value={group.dose}
                     onChange={(e) => handleGroupChange(index, 'dose', e.target.value)}
-                    className="w-full border border-slate-300 rounded px-2 py-1 focus:ring-1 focus:ring-indigo-500"
+                    className="w-full border border-slate-300 rounded px-2 py-1 focus:ring-1 focus:ring-emerald-500"
                     placeholder="0"
                   />
                 </td>
@@ -51,7 +53,7 @@ export default function ToxicometryInputTable({ groups, setGroups }) {
                     type="number"
                     value={group.total}
                     onChange={(e) => handleGroupChange(index, 'total', e.target.value)}
-                    className="w-full border border-slate-300 rounded px-2 py-1 focus:ring-1 focus:ring-indigo-500"
+                    className="w-full border border-slate-300 rounded px-2 py-1 focus:ring-1 focus:ring-emerald-500"
                     placeholder="0"
                   />
                 </td>

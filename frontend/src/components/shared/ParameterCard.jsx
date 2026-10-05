@@ -1,4 +1,3 @@
-// frontend/src/components/toxicokinetics/ParameterCard.jsx
 
 const STATUS_STYLES = {
   green:  { bg: 'bg-green-50',  border: 'border-green-200',  badge: 'bg-green-500',  text: 'text-green-800'  },

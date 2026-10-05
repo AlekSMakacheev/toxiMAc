@@ -1,7 +1,7 @@
 export default function DataInputTable({ points, setPoints }) {
   
   const handlePointChange = (index, field, value) => {
-    // Правильный React-путь: создаем новый массив и полностью новый объект для измененной строки
+    
     const newPoints = points.map((point, i) => {
       if (i === index) {
         return { ...point, [field]: value };
@@ -29,8 +29,8 @@ export default function DataInputTable({ points, setPoints }) {
         <table className="w-full text-sm text-left">
           <thead className="bg-slate-50 text-slate-600 font-medium border-b border-slate-200">
             <tr>
-              <th className="px-4 py-3">Время (мин)</th>
-              <th className="px-4 py-3">Концентрация</th>
+              <th className="px-4 py-3 text-center">Время (мин)</th>
+              <th className="px-4 py-3 text-center">Концентрация</th>
               <th className="px-2 py-3 w-10"></th>
             </tr>
           </thead>
@@ -42,7 +42,7 @@ export default function DataInputTable({ points, setPoints }) {
                     type="number"
                     value={point.time}
                     onChange={(e) => handlePointChange(index, 'time', e.target.value)}
-                    className="w-full border border-slate-300 rounded px-2 py-1 text-slate-700 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                    className="w-full border border-slate-300 rounded px-2 py-1 text-slate-700 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                     placeholder="0"
                   />
                 </td>
@@ -51,7 +51,7 @@ export default function DataInputTable({ points, setPoints }) {
                     type="number"
                     value={point.concentration}
                     onChange={(e) => handlePointChange(index, 'concentration', e.target.value)}
-                    className="w-full border border-slate-300 rounded px-2 py-1 text-slate-700 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                    className="w-full border border-slate-300 rounded px-2 py-1 text-slate-700 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                     placeholder="0"
                   />
                 </td>

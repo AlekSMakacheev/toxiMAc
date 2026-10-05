@@ -1,7 +1,7 @@
-import ParameterCard from './ParameterCard';
+import ParameterCard from '../shared/ParameterCard';
 
 export default function AnalysisResults({ results }) {
-  // Если данных нет — показываем заглушку
+  
   if (!results) {
     return (
       <div className="h-full">
@@ -17,15 +17,12 @@ export default function AnalysisResults({ results }) {
     );
   }
 
-  // Проверяем, есть ли карточки от бэкенда
   const hasCards = results.cards && results.cards.length > 0;
 
   return (
     <div className="h-full space-y-4">
 
-      {/* ============================================================
-          1. КАРТОЧКИ ПАРАМЕТРОВ (главный блок)
-          ============================================================ */}
+      {/* КАРТОЧКИ ПАРАМЕТРОВ  */}
       {hasCards && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {results.cards.map((card) => (
@@ -34,13 +31,11 @@ export default function AnalysisResults({ results }) {
         </div>
       )}
 
-      {/* ============================================================
-          2. ЭКСПЕРТНОЕ ЗАКЛЮЧЕНИЕ (summary)
-          ============================================================ */}
+      {/* ЗАКЛЮЧЕНИЕ */}
       {results.summary && (
         <div className="rounded-xl border border-purple-200 bg-purple-50 p-5 shadow-sm">
           <h3 className="font-semibold text-purple-900 mb-2">
-            🧠 {results.summary.headline}
+            {results.summary.headline}
           </h3>
           <p className="text-sm text-gray-700 leading-relaxed">
             {results.summary.text}
@@ -55,12 +50,10 @@ export default function AnalysisResults({ results }) {
         </div>
       )}
 
-      {/* ============================================================
-          3. СЫРЫЕ ЗНАЧЕНИЯ (сворачиваемая таблица для справки)
-          ============================================================ */}
+      {/* ТАблица с параметрами */}
       <details className="bg-slate-50 rounded-lg border border-slate-100 shadow-sm">
         <summary className="cursor-pointer p-4 font-bold text-xs text-slate-500 uppercase tracking-wider hover:bg-slate-100 transition-colors rounded-lg">
-          📊 Показать все параметры (сырые значения)
+          📊 Показать все токсикокинетические параметры
         </summary>
 
         <div className="p-4 pt-0 space-y-2 text-sm text-slate-700">
@@ -91,9 +84,6 @@ export default function AnalysisResults({ results }) {
   );
 }
 
-// ============================================================
-// Вспомогательный компонент для строки таблицы
-// ============================================================
 function Row({ label, tooltip, value, unit }) {
   return (
     <p className="flex justify-between border-b border-slate-200 pb-1 hover:bg-slate-100 px-1 rounded transition-colors">
@@ -102,7 +92,7 @@ function Row({ label, tooltip, value, unit }) {
         {unit && <span className="text-slate-400 text-xs ml-1">({unit})</span>}:
       </span>
       {value != null ? (
-        <span className="font-bold text-indigo-600">{value.toFixed(4)}</span>
+        <span className="font-bold text-emerald-600">{value.toFixed(4)}</span>
       ) : (
         <span className="text-slate-400 italic">—</span>
       )}
