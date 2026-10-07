@@ -1,8 +1,8 @@
-package ru.mas.toximas.service;
+package ru.mas.toximas.service.calculation;
 
 import org.springframework.stereotype.Service;
-import ru.mas.toximas.dto.CalculationResponseDto.ParameterCard;
-import ru.mas.toximas.dto.CalculationResponseDto.Summary;
+import ru.mas.toximas.dto.toxicokinetic.CalculationResponseDto.ParameterCard;
+import ru.mas.toximas.dto.toxicokinetic.CalculationResponseDto.Summary;
 
 import java.util.ArrayList;
 import java.util.List;

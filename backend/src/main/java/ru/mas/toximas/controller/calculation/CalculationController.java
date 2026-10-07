@@ -1,9 +1,9 @@
-package ru.mas.toximas.controller;
+package ru.mas.toximas.controller.calculation;
 
 import org.springframework.web.bind.annotation.*;
-import ru.mas.toximas.dto.CalculationRequestDto;
-import ru.mas.toximas.dto.CalculationResponseDto;
-import ru.mas.toximas.service.CalculationService;
+import ru.mas.toximas.dto.toxicokinetic.CalculationRequestDto;
+import ru.mas.toximas.dto.toxicokinetic.CalculationResponseDto;
+import ru.mas.toximas.service.calculation.CalculationService;
 
 @RestController
 @RequestMapping("/api/calculate")

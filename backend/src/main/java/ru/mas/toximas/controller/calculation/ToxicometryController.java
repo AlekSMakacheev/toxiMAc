@@ -1,9 +1,9 @@
-package ru.mas.toximas.controller;
+package ru.mas.toximas.controller.calculation;
 
 import org.springframework.web.bind.annotation.*;
-import ru.mas.toximas.dto.ToxicometryRequestDto;
-import ru.mas.toximas.dto.ToxicometryResponseDto;
-import ru.mas.toximas.service.ToxicometryService;
+import ru.mas.toximas.dto.toxicometry.ToxicometryRequestDto;
+import ru.mas.toximas.dto.toxicometry.ToxicometryResponseDto;
+import ru.mas.toximas.service.calculation.ToxicometryService;
 
 @RestController
 @RequestMapping("/api/toxicometry")

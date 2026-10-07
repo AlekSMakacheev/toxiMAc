@@ -1,9 +1,9 @@
-package ru.mas.toximas.service;
+package ru.mas.toximas.service.calculation;
 
 import org.springframework.stereotype.Service;
-import ru.mas.toximas.dto.GroupDto;
-import ru.mas.toximas.dto.ToxicometryRequestDto;
-import ru.mas.toximas.dto.ToxicometryResponseDto;
+import ru.mas.toximas.dto.core.GroupDto;
+import ru.mas.toximas.dto.toxicometry.ToxicometryRequestDto;
+import ru.mas.toximas.dto.toxicometry.ToxicometryResponseDto;
 import java.util.List;
 
 @Service
@@ -20,7 +20,7 @@ public class ToxicometryService {
         continue;
       }
 
-      double p = (double) group.dead() / group.total();
+      double p = (double) group.effect() / group.total();
 
       if (p <= 0.0) p = 0.01;
       if (p >= 1.0) p = 0.99;

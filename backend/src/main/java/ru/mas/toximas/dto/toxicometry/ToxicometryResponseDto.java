@@ -1,4 +1,4 @@
-package ru.mas.toximas.dto;
+package ru.mas.toximas.dto.toxicometry;
 
 public record ToxicometryResponseDto(
         Double ld16,
