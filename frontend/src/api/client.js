@@ -1,6 +1,6 @@
 import { API_URL } from '../constants/api';
 
-//сPOST-запрос к API.
+//POST-запрос к API.
 export async function post(endpoint, body) {
   const response = await fetch(`${API_URL}${endpoint}`, {
     method: 'POST',

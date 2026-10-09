@@ -16,7 +16,10 @@ public class ToxicometryService {
     double sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0, sumY2 = 0;
 
     for (GroupDto group : groups) {
-      if (group.dose() == null || group.dose() <= 0 || group.total() == null || group.total() <= 0) {
+      if (group == null
+              ||group.dose() == null || group.dose() <= 0
+              || group.total() == null || group.total() <= 0
+              || group.effect() == null) {
         continue;
       }
 

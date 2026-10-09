@@ -2,7 +2,6 @@ export default function Sidebar({ activeTool, setActiveTool }) {
   return (
     <aside className="w-64 h-full bg-white border-r border-slate-200 flex flex-col z-0 shrink-0">
 
-      {/* Верхняя часть — инструменты */}
       <nav className="p-4 space-y-2 flex-1">
 
         <button
@@ -40,7 +39,6 @@ export default function Sidebar({ activeTool, setActiveTool }) {
 
       </nav>
 
-      {/* Нижняя часть — служебные разделы */}
       <div className="p-4 border-t border-slate-100 space-y-2">
 
         <button

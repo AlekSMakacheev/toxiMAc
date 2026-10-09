@@ -111,6 +111,9 @@ public class CalculationService {
 
     double slope = (sumXY - count * meanX * meanY) / denom;
     // slope = -kel
+    if (slope >= 0) {
+      return 0.0; // Невозможно рассчитать kel
+    }
     return -slope;
   }
 

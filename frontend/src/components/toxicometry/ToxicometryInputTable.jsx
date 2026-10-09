@@ -11,7 +11,7 @@ export default function ToxicometryInputTable({ groups, setGroups }) {
   };
 
   const addGroup = () => {
-    setGroups([...groups, { dose: '', total: '', dead: '' }]);
+    setGroups([...groups, { dose: '', total: '', effect: '' }]);
   };
 
   const removeGroup = (index) => {
@@ -60,8 +60,8 @@ export default function ToxicometryInputTable({ groups, setGroups }) {
                 <td className="px-3 py-2">
                   <input
                     type="number"
-                    value={group.dead}
-                    onChange={(e) => handleGroupChange(index, 'dead', e.target.value)}
+                    value={group.effect}
+                    onChange={(e) => handleGroupChange(index, 'effect', e.target.value)}
                     className="w-full border border-slate-300 rounded px-2 py-1 focus:ring-1 focus:ring-rose-500"
                     placeholder="0"
                   />

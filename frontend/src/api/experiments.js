@@ -23,7 +23,6 @@ export async function getExperiments() {
   return response.json();
 }
 
-
 // Получить одно исследование
 export async function getExperiment(id) {
   const response = await fetch(`${API_URL}/experiments/${id}`);
