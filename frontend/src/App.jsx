@@ -4,6 +4,7 @@ import Header from './components/layout/Header';
 import Sidebar from './components/layout/Sidebar';
 import ToxicokineticsPage from './pages/ToxicokineticsPage';
 import ToxicometryPage from './pages/ToxicometryPage';
+import ExperimentsPage from './pages/ExperimentsPage';
 import ReferencePage from './pages/ReferencePage';
 
 function App() {
@@ -24,6 +25,9 @@ function App() {
           {/* Токсикокинетика */}
           {activeTool === 'toxicokinetics' && <ToxicokineticsPage />}
 
+          {/* Мои исследования — НОВОЕ */}
+          {activeTool === 'experiments' && <ExperimentsPage />}
+
           {/* Справочник */}
           {activeTool === 'reference' && <ReferencePage />}
 
@@ -38,7 +42,7 @@ function App() {
           {!activeTool && (
             <div className="relative h-full flex flex-col items-center justify-center text-slate-400 animate-in fade-in duration-500 overflow-hidden">
 
-              {/* Логотип  */}
+              {/* Логотип */}
               <img 
                 src={logo} 
                 alt="" 
@@ -47,7 +51,7 @@ function App() {
 
               {/* Текст поверх */}
               <div className="relative z-10 text-center">
-                <h2 className="text-3xl font-bold text-slate-600 mb-2">Добро пожаловать в toxiMAc</h2>
+                <h2 className="text-3xl font-bold text-slate-600 mb-2">Добро пожаловать в toxiMAс</h2>
                 <p className="text-slate-400 text-lg">Выберите инструмент в меню слева для начала работы</p>
               </div>
 

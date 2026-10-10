@@ -6,7 +6,7 @@ export default function ToxicometryResults({ results }) {
         <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-100 flex flex-col justify-center">
           <p className="text-emerald-700 font-bold mb-1">LD<sub className="text-[0.6em]">16</sub></p>
           <p className="text-xl font-black text-emerald-900">
-            {results ? results.ld16.toFixed(2) : '-'}
+            {results?.ld16 != null ? results.ld16.toFixed(2) : '-'}
           </p>
         </div>
 
@@ -16,10 +16,10 @@ export default function ToxicometryResults({ results }) {
           </div>
           <p className="text-rose-700 font-bold mb-1">LD<sub className="text-[0.6em]">50</sub></p>
           <p className="text-2xl font-black text-rose-900 flex items-baseline justify-center">
-            {results ? (
+            {results?.ld50 != null ? (
               <>
                 {results.ld50.toFixed(2)}
-                {results.ld50Error > 0 && (
+                {results.ld50Error != null && results.ld50Error > 0 && (
                   <span className="text-sm font-medium text-rose-700 ml-1">
                     ± {results.ld50Error.toFixed(2)}
                   </span>
@@ -32,7 +32,7 @@ export default function ToxicometryResults({ results }) {
         <div className="p-4 bg-amber-50 rounded-lg border border-amber-100 flex flex-col justify-center">
           <p className="text-amber-700 font-bold mb-1">LD<sub className="text-[0.6em]">84</sub></p>
           <p className="text-xl font-black text-amber-900">
-            {results ? results.ld84.toFixed(2) : '-'}
+            {results?.ld84 != null ? results.ld84.toFixed(2) : '-'}
           </p>
         </div>
       </div>

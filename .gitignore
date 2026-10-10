@@ -39,3 +39,6 @@ backend/mvnw.cmd
 .env
 .env.local
 *.local
+
+# ============ H2 Database ============
+backend/data/

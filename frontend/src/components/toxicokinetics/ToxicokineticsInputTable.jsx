@@ -42,7 +42,7 @@ export default function DataInputTable({ points, setPoints }) {
                     type="number"
                     value={point.time}
                     onChange={(e) => handlePointChange(index, 'time', e.target.value)}
-                    className="w-full border border-slate-300 rounded px-2 py-1 text-slate-700 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                    className="w-full border border-slate-300 rounded px-2 py-1 text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     placeholder="0"
                   />
                 </td>
@@ -51,7 +51,7 @@ export default function DataInputTable({ points, setPoints }) {
                     type="number"
                     value={point.concentration}
                     onChange={(e) => handlePointChange(index, 'concentration', e.target.value)}
-                    className="w-full border border-slate-300 rounded px-2 py-1 text-slate-700 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                    className="w-full border border-slate-300 rounded px-2 py-1 text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     placeholder="0"
                   />
                 </td>

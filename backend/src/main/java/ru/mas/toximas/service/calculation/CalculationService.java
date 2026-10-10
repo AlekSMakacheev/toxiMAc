@@ -1,9 +1,9 @@
-package ru.mas.toximas.service;
+package ru.mas.toximas.service.calculation;
 
 import org.springframework.stereotype.Service;
-import ru.mas.toximas.dto.CalculationRequestDto;
-import ru.mas.toximas.dto.CalculationResponseDto;
-import ru.mas.toximas.dto.PointDto;
+import ru.mas.toximas.dto.toxicokinetic.CalculationRequestDto;
+import ru.mas.toximas.dto.toxicokinetic.CalculationResponseDto;
+import ru.mas.toximas.dto.core.PointDto;
 
 import java.util.List;
 
@@ -111,6 +111,9 @@ public class CalculationService {
 
     double slope = (sumXY - count * meanX * meanY) / denom;
     // slope = -kel
+    if (slope >= 0) {
+      return 0.0; // Невозможно рассчитать kel
+    }
     return -slope;
   }
 

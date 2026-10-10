@@ -69,7 +69,6 @@ export default function ReferencePage() {
             </div>
           </AccordionSection>
 
-          {/* ТОКСИКОКИНЕТИКА */}
           <AccordionSection
             id="toxicokinetics"
             icon="" // для иконки

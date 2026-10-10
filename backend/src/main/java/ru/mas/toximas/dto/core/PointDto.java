@@ -1,4 +1,4 @@
-package ru.mas.toximas.dto;
+package ru.mas.toximas.dto.core;
 
 //Этот класс будет принимать каждую отдельную точку с графика (время и концентрацию)
 public record PointDto(

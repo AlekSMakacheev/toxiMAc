@@ -1,6 +1,5 @@
 
 // Скачивает SVG-график (из ref) как PNG.
-
 export function downloadChartAsPng(chartContainerRef, filename = 'chart.png') {
   const chartNode = chartContainerRef?.current;
   if (!chartNode) return;
@@ -17,7 +16,6 @@ export function downloadChartAsPng(chartContainerRef, filename = 'chart.png') {
     canvas.width = svg.clientWidth || 800;
     canvas.height = svg.clientHeight || 400;
 
-    // Белый фон (иначе PNG будет прозрачным)
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, 0, 0);
