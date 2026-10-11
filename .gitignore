@@ -42,3 +42,8 @@ backend/mvnw.cmd
 
 # ============ H2 Database ============
 backend/data/
+
+# ============ Release ============
+release/jre/
+release/toximas.jar
+release/data/
