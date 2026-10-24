@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Hourglass  } from 'lucide-react';
 import logo from './assets/logo.png';
 import Header from './components/layout/Header';
 import Sidebar from './components/layout/Sidebar';
@@ -20,10 +21,10 @@ function App() {
         <main className="flex-1 overflow-y-auto bg-slate-50 p-6">
 
           {/* Токсикометрия */}
-          {activeTool === 'toxicometry' && <ToxicometryPage />}
+          {activeTool === 'toxicometry' && <ToxicometryPage setActiveTool={setActiveTool}/>}
 
           {/* Токсикокинетика */}
-          {activeTool === 'toxicokinetics' && <ToxicokineticsPage />}
+          {activeTool === 'toxicokinetics' && <ToxicokineticsPage setActiveTool={setActiveTool}/>}
 
           {/* Мои исследования — НОВОЕ */}
           {activeTool === 'experiments' && <ExperimentsPage />}
@@ -33,9 +34,9 @@ function App() {
 
           {activeTool === 'future_tool' && (
             <div className="h-full flex flex-col items-center justify-center text-slate-400 animate-in fade-in duration-300">
-              <span className="text-6xl mb-4">🛠️</span>
+              <Hourglass size={64} strokeWidth={1.5} className="mb-4 text-sky-600" />
               <h2 className="text-2xl font-medium text-slate-500">Инструмент в разработке</h2>
-              <p className="mt-2 text-slate-400">Скоро здесь появится модуль</p>
+              <p className="mt-2 text-slate-400">Скоро здесь появится новый модуль</p>
             </div>
           )}
 

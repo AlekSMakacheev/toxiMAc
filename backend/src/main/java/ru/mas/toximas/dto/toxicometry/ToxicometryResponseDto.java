@@ -1,11 +1,11 @@
 package ru.mas.toximas.dto.toxicometry;
 
 public record ToxicometryResponseDto(
-        Double ld16,
-        Double ld50,
-        Double ld84,
-        Double ld50Error, // Добавили стандартную ошибку
-        Double a, // Коэффициент A прямой регрессии
-        Double b  // Коэффициент B прямой регресси
+        Double d16,
+        Double d50,
+        Double d84,
+        Double d50Error,
+        Double a,
+        Double b
 
 ) {}

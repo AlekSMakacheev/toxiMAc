@@ -56,29 +56,29 @@ public class ToxicometryService {
     double a = meanY - b * meanX;
 
     // Расчет логарифмов летальных доз
-    double logLd16 = (4.0 - a) / b;
-    double logLd50 = (5.0 - a) / b;
-    double logLd84 = (6.0 - a) / b;
+    double logD16 = (4.0 - a) / b;
+    double logD50 = (5.0 - a) / b;
+    double logD84 = (6.0 - a) / b;
 
-    Double ld16 = Math.pow(10, logLd16);
-    Double ld50 = Math.pow(10, logLd50);
-    Double ld84 = Math.pow(10, logLd84);
+    Double d16 = Math.pow(10, logD16);
+    Double d50 = Math.pow(10, logD50);
+    Double d84 = Math.pow(10, logD84);
 
-    // Расчет стандартной ошибки для LD50
-    Double ld50Error = 0.0;
+    // Расчет стандартной ошибки для d50
+    Double d50Error = 0.0;
     if (n > 2) {
       // Остаточная дисперсия
       double s2 = (ssYy - b * ssXy) / (n - 2);
 
-      // Дисперсия для логарифма LD50
-      double varLogLd50 = (s2 / (b * b)) * (1.0 / n + Math.pow(logLd50 - meanX, 2) / ssXx);
-      double seLogLd50 = Math.sqrt(varLogLd50);
+      // Дисперсия для логарифма d50
+      double varlogD50 = (s2 / (b * b)) * (1.0 / n + Math.pow(logD50 - meanX, 2) / ssXx);
+      double selogD50 = Math.sqrt(varlogD50);
 
       // Дельта-метод для перевода ошибки из логарифмической шкалы в линейную
-      ld50Error = ld50 * Math.log(10) * seLogLd50;
+      d50Error = d50 * Math.log(10) * selogD50;
     }
 
-    return new ToxicometryResponseDto(ld16, ld50, ld84, ld50Error, a, b);
+    return new ToxicometryResponseDto(d16, d50, d84, d50Error, a, b);
   }
 
   private double calculateProbit(double p) {

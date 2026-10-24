@@ -1,4 +1,5 @@
 import ParameterCard from '../shared/ParameterCard';
+import { TableProperties  } from 'lucide-react';
 
 export default function AnalysisResults({ results }) {
   
@@ -52,8 +53,9 @@ export default function AnalysisResults({ results }) {
 
       {/* ТАблица с параметрами */}
       <details className="bg-slate-50 rounded-lg border border-slate-100 shadow-sm">
-        <summary className="cursor-pointer p-4 font-bold text-xs text-slate-500 uppercase tracking-wider hover:bg-slate-100 transition-colors rounded-lg">
-          📊 Показать все токсикокинетические параметры
+        <summary className="cursor-pointer p-4 font-bold text-xs text-slate-500 uppercase tracking-wider hover:bg-slate-100 transition-colors rounded-lg flex items-center gap-2">
+          <TableProperties  size={16} className="text-sky-600" />
+            Показать все токсикокинетические параметры
         </summary>
 
         <div className="p-4 pt-0 space-y-2 text-sm text-slate-700">
@@ -92,7 +94,7 @@ function Row({ label, tooltip, value, unit }) {
         {unit && <span className="text-slate-400 text-xs ml-1">({unit})</span>}:
       </span>
       {value != null ? (
-        <span className="font-bold text-emerald-600">{value.toFixed(4)}</span>
+        <span className="font-bold text-emerald-600">{value.toFixed(2)}</span>
       ) : (
         <span className="text-slate-400 italic">—</span>
       )}

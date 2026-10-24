@@ -1,3 +1,5 @@
+import { NotebookPen, LibraryBig } from "lucide-react";
+
 export default function Sidebar({ activeTool, setActiveTool }) {
   return (
     <aside className="w-64 h-full bg-white border-r border-slate-200 flex flex-col z-0 shrink-0">
@@ -49,7 +51,7 @@ export default function Sidebar({ activeTool, setActiveTool }) {
               : 'bg-white text-slate-600 border-transparent hover:bg-slate-50'
           }`}
         >
-          <span className="mr-3 text-lg">📁</span>
+          <NotebookPen size={20} className="text-sky-600" />
           Мои исследования
         </button>
 
@@ -61,7 +63,7 @@ export default function Sidebar({ activeTool, setActiveTool }) {
               : 'bg-white text-slate-600 border-transparent hover:bg-slate-50'
           }`}
         >
-          <span className="mr-3 text-lg">📚</span>
+          <LibraryBig size={20} className="text-sky-600" />
           Справочник
         </button>
 

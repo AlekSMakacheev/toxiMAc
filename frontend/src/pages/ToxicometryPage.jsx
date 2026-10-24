@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { Save } from 'lucide-react';
 import { calculateToxicometry } from '../api/toxicometry';
 import { createToxicometryExperiment } from '../api/toxicometryExperiments';
 import { downloadChartAsPng } from '../utils/downloadChart';
@@ -8,7 +9,7 @@ import ToxicometryChart from '../components/toxicometry/ToxicometryChart';
 import ToxicometryResults from '../components/toxicometry/ToxicometryResults';
 import SaveExperimentModal from '../components/shared/SaveExperimentModal';
 
-export default function ToxicometryPage() {
+export default function ToxicometryPage({ setActiveTool }) {
   const [groups, setGroups] = useState([
     { dose: '', total: '', effect: '' },
     { dose: '', total: '', effect: '' },
@@ -37,8 +38,8 @@ export default function ToxicometryPage() {
       }
 
       const data = await calculateToxicometry(validGroups);
-      if (!data || data.ld16 == null) {
-        alert('Не удалось рассчитать LD. Проверьте, что все дозы разные и заполнены.');
+      if (!data || data.d16 == null) {
+        alert('Не удалось рассчитать дозу). Проверьте, что все дозы разные и заполнены.');
         setResults(null);
         return;
       }
@@ -71,6 +72,7 @@ export default function ToxicometryPage() {
 
       await createToxicometryExperiment(payload);
       alert('Исследование успешно сохранено!');
+      setActiveTool('experiments')
     } catch (error) {
       console.error('Ошибка сохранения:', error);
       throw error;
@@ -126,9 +128,16 @@ export default function ToxicometryPage() {
             <button
               onClick={() => setIsModalOpen(true)}
               disabled={isSaving}
-              className="mt-2 w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg shadow-sm transition-colors disabled:opacity-50"
+              className="mt-2 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors shadow-sm disabled:opacity-50 flex items-center justify-center gap-2"
             >
-              {isSaving ? 'Сохранение...' : '💾 Сохранить исследование'}
+              {isSaving ? (
+                'Сохранение...'
+              ) : (
+                <>
+                  <Save size={18} strokeWidth={2.5} />
+                  Сохранить исследование
+                </>
+              )}    
             </button>
           )}
         </div>

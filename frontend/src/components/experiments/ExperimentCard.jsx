@@ -1,4 +1,5 @@
 import { formatDate } from '../../utils/formatters';
+import { BarChart3, Calendar } from 'lucide-react';
 
 export default function ExperimentCard({ experiment, type, onOpen, onDelete }) {
   const isKinetic = type === 'kinetic';
@@ -14,7 +15,7 @@ export default function ExperimentCard({ experiment, type, onOpen, onDelete }) {
         <div className="flex justify-between items-start mb-4">
           <div className="flex items-center gap-3 flex-1 min-w-0">
             <div className="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center shrink-0">
-              <span className="text-xl">📊</span>
+              <BarChart3 size={20} className="text-sky-600" strokeWidth={2} />
             </div>
             <h3 className="font-bold text-slate-800 text-lg truncate" title={experiment.name}>
               {experiment.name}
@@ -92,7 +93,7 @@ export default function ExperimentCard({ experiment, type, onOpen, onDelete }) {
         </div>
 
         <div className="mt-4 pt-4 border-t border-slate-100 flex items-center gap-2 text-xs text-slate-400">
-          <span>📅</span>
+          <Calendar size={14} className='text-sky-600'/>
           <span>{formatDate(experiment.createdAt)}</span>
         </div>
 

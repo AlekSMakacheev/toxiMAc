@@ -50,7 +50,7 @@ export default function SaveExperimentModal({ isOpen, onClose, onSave, defaultSu
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="w-full border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              placeholder="Например, Тест 1"
+              placeholder="Исследование №..."
               autoFocus
             />
           </div>
@@ -64,7 +64,7 @@ export default function SaveExperimentModal({ isOpen, onClose, onSave, defaultSu
               value={substance}
               onChange={(e) => setSubstance(e.target.value)}
               className="w-full border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              placeholder="Например, Вещество X"
+              placeholder="Субстанция..."
             />
           </div>
 

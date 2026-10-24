@@ -157,7 +157,7 @@ export default function ExperimentDetailsModal({
                         domain={[0, 100]}
                       />
                       <Tooltip
-                        formatter={(value) => [`${value.toFixed(1)}%`, 'Летальность']}
+                        formatter={(value) => [`${value.toFixed(1)}%`, 'Эффект']}
                         labelFormatter={(label) => `Доза: ${label} мг/кг`}
                       />
                       <Line

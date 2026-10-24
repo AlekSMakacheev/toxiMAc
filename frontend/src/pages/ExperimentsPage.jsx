@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
+import { Database } from 'lucide-react';
 import {
   getToxicokineticExperiments,
   deleteToxicokineticExperiment
@@ -202,9 +203,9 @@ export default function ExperimentsPage() {
       {/* Список */}
       {pageList.length === 0 ? (
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-16 text-center">
-          <div className="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span className="text-4xl">📭</span>
-          </div>
+          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+  <Database size={40} className="text-white" />
+</div>
           <h3 className="text-lg font-semibold text-slate-700 mb-2">
             {query ? 'Ничего не найдено' : 'Нет сохранённых исследований'}
           </h3>

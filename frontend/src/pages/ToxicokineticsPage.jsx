@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { Save } from 'lucide-react';
 import { calculateToxicokinetics } from '../api/toxicokinetics';
 import { createToxicokineticExperiment } from '../api/toxicokineticExperiments';
 import { downloadChartAsPng } from '../utils/downloadChart';
@@ -8,7 +9,7 @@ import ToxicokineticsResults from '../components/toxicokinetics/ToxicokineticsRe
 import ExpertAiPanel from '../components/shared/ExpertAiPanel';
 import SaveExperimentModal from '../components/shared/SaveExperimentModal';
 
-export default function ToxicokineticsPage() {
+export default function ToxicokineticsPage({ setActiveTool }) {
   const [dose, setDose] = useState('');
   const [points, setPoints] = useState([
     { time: '', concentration: '' },
@@ -104,6 +105,7 @@ export default function ToxicokineticsPage() {
 
       await createToxicokineticExperiment(payload);
       alert('Исследование успешно сохранено!');
+      setActiveTool('experiments')
     } catch (error) {
       console.error('Ошибка сохранения:', error);
       throw error;
@@ -144,9 +146,16 @@ export default function ToxicokineticsPage() {
             <button 
               onClick={() => setIsModalOpen(true)}
               disabled={isSaving}
-              className="mt-2 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors shadow-sm disabled:opacity-50"
+              className="mt-2 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors shadow-sm disabled:opacity-50 flex items-center justify-center gap-2"
             >
-              {isSaving ? 'Сохранение...' : '💾 Сохранить исследование'}
+              {isSaving ? ( 
+                'Сохранение...'
+              ) : (
+                <> 
+                  <Save size={18} strokeWidth={2.5} />
+                    Сохранить исследование
+                </>
+              )} 
             </button>
           )}
         </div>

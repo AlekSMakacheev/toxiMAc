@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { LibraryBig } from "lucide-react";
 
 export default function ReferencePage() {
   const [openSection, setOpenSection] = useState(null);
@@ -11,7 +12,7 @@ export default function ReferencePage() {
     <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in duration-300">
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
         <h2 className="text-2xl font-bold text-slate-800 mb-2 border-b border-slate-100 pb-4 flex items-center">
-          <span className="text-3xl mr-3">📚</span>
+          <LibraryBig size={25} className="text-sky-600" />
           Справочник
         </h2>
 
@@ -37,32 +38,32 @@ export default function ReferencePage() {
                 </p>
               </InfoBlock>
 
-              <InfoBlock title="LD₁₆, LD₅₀, LD₈₄">
+              <InfoBlock title="Категории доз">
                 <ul className="list-disc pl-5 space-y-2">
                   <li>
-                    <strong>LD<sub className="text-[0.7em]">16</sub></strong> — доза, вызывающая гибель <strong>16%</strong> подопытных животных.
+                    <strong>Токсическая доза (D)</strong> — количество вещества, попавшее во внутренние среды организма и вызвавшее токсический эффект. 
+                      <em className="text-slate-500"> Размерность: мг/кг, мкг/кг, моль/кг.</em>
                   </li>
                   <li>
-                    <strong>LD<sub className="text-[0.7em]">50</sub></strong> — доза, вызывающая гибель <strong>50%</strong>. <em>Основной показатель токсичности.</em>
+                    <strong>Эффективная доза (ED)</strong> — количество вещества, вызывающее при попадании в организм определенный эффект с определенной вероятностью.
+                    <em className="text-slate-500"> Например: среднеэффективная доза (ED₅₀) — доза вызывающая определенный эффект у 50% тест-объектов. </em>
                   </li>
                   <li>
-                    <strong>LD<sub className="text-[0.7em]">84</sub></strong> — доза, вызывающая гибель <strong>84%</strong>.
+                    <strong>Пороговая токсическая доза (pD)</strong> — количество вещества, вызывающее начальный эффект у определенного процента тест-объектов.
                   </li>
                 </ul>
-                <p className="mt-2 text-slate-500 italic text-xs">
-                  Единицы: мг/кг массы тела.
-                </p>
+                
               </InfoBlock>
 
               <InfoBlock title="Пробит-анализ">
                 <p>
-                  Метод <strong>нелинейной регрессии</strong>, преобразующий процент летальности в «пробиты» (probability units) — и позволяющий строить <strong>линейную зависимость</strong> от логарифма дозы.
+                  Метод <strong>нелинейной регрессии</strong>, преобразующий процент эффекта в «пробиты» (probability units), что позволяет построить <strong>линейную зависимость</strong> от логарифма дозы.
                 </p>
                 <p className="mt-2">
-                  Формула: <code className="bg-slate-100 px-1 rounded">Probit = a + b × log₁₀(Dose)</code>
+                  Формула: <code className="bg-slate-100 px-1 rounded">Probit = a + b × log₁₀(D)</code>
                 </p>
                 <p className="mt-2 text-slate-500 italic text-xs">
-                  Затем через обратное преобразование находим LD₁₆, LD₅₀, LD₈₄.
+                  Затем через обратное преобразование находим D₁₆, D₅₀, D₈₄.
                 </p>
               </InfoBlock>
 

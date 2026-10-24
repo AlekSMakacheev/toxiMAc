@@ -1,4 +1,5 @@
 import logo from '../../assets/logo.png';
+import { LayoutDashboard  } from 'lucide-react';
 
 export default function Header({ setActiveTool }) {
   return (
@@ -16,9 +17,9 @@ export default function Header({ setActiveTool }) {
       <button 
         onClick={() => setActiveTool(null)}
         title="На главную"
-        className="w-10 h-10 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 rounded-md flex items-center justify-center transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+        className="w-10 h-10 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-sky-600 rounded-md flex items-center justify-center transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
       >
-        🏠
+         <LayoutDashboard  size={20} strokeWidth={2} />
       </button>
 
     </header>
